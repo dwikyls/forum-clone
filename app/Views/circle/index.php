@@ -1,12 +1,14 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-
+<?php if (session()->getFlashData('pesan')) : ?>
+    <?= session()->getFlashData('pesan'); ?>
+<?php endif; ?>
 <div class="container">
     <?php foreach ($diskusi as $d) : ?>
         <div class="row shadow p-1 mt-4 rounded">
             <div class="col-2">
-                <img src="<?= $d['foto']; ?>" class="img-thumbnail rounded-circle border-warning" width="120px">
+                <img src="/assets/img/<?= $d['foto']; ?>" class="img-thumbnail rounded-circle border-warning" width="120px">
             </div>
             <div class="col-8 text-justify">
                 <div class="row">
