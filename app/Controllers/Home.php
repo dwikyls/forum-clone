@@ -15,32 +15,38 @@ class Home extends BaseController
 
 	public function index()
 	{
-		$db = \Config\Database::connect();
-		$query = $db->query('SELECT post.id_post, post.judul, post.deskripsi, post.berkas, post.kategori, post.jml_komentar, post.created_at, user.foto, user.nama  FROM post INNER JOIN user ON post.user_id = user.id')->getResultArray();
+		$user = $this->db->query('SELECT * FROM user WHERE email = "' . session('email') . '"')->getRowArray();
 
+		var_dump($user);
+		die;
+
+		$query = $this->db->query('SELECT post.id_post, post.judul, post.deskripsi, post.berkas, post.kategori, post.jml_komentar, post.created_at, user.foto, user.nama  FROM post INNER JOIN user ON post.user_id = user.id')->getResultArray();
 
 		$data = [
 			'title' => 'Forum Diskusi',
-			'diskusi' => $query
+			'diskusi' => $query,
+			'user' => $user
 		];
 
-		return view('circle/index', $data);
+		return view('home/index', $data);
 	}
 
 	public function detail($id)
 	{
-		$db      = \Config\Database::connect();
-		$query = $db->query('SELECT post.id_post, post.judul, post.deskripsi, post.berkas, post.kategori, post.jml_komentar, post.created_at, user.foto, user.nama  FROM post INNER JOIN user ON post.user_id = user.id WHERE post.id_post=' . $id)->getResultArray();
+		$user = $this->db->query('SELECT * FROM user WHERE email = "' . session('email') . '"')->getRowArray();
 
-		$komen = $db->query('SELECT komen.id_komen, komen.deskripsi, komen.berkas, komen.created_at, user.nama, user.foto FROM `komen` INNER JOIN user ON komen.user_id = user.id where komen.target_post =' . $id)->getResultArray();
+		$query = $this->db->query('SELECT post.id_post, post.judul, post.deskripsi, post.berkas, post.kategori, post.jml_komentar, post.created_at, user.foto, user.nama  FROM post INNER JOIN user ON post.user_id = user.id WHERE post.id_post=' . $id)->getRowArray();
+
+		$komen = $this->db->query('SELECT komen.id_komen, komen.deskripsi, komen.berkas, komen.created_at, user.nama, user.foto FROM `komen` INNER JOIN user ON komen.user_id = user.id where komen.target_post =' . $id)->getResultArray();
 
 		$data = [
 			'title' => 'Detail Diskusi',
 			'diskusi' => $query,
 			'komen' => $komen,
+			'user' => $user
 		];
 
-		return view('circle/detail', $data);
+		return view('home/detail', $data);
 	}
 
 	public function create()

@@ -33,7 +33,7 @@
                     </div>
                     <form action="/Home/create" method="post" enctype="multipart/form-data">
                         <?= csrf_field(); ?>
-                        <input type="hidden" name="user_id" id="user_id" value="1">
+                        <input type="hidden" name="user_id" id="user_id" value="<?= $user['id']; ?>">
                         <div class="modal-body">
                             <div class="row bg-light p-1 m-2">
                                 <input type="text" name="judul" id="judul" class="bg-transparent border-0" placeholder="Tulis judul diskusi disini...">

@@ -10,10 +10,10 @@ class User extends BaseController
 
         $data = [
             'title' => 'Forum Diskusi',
-            'nama' => $user['nama']
+            'user' => $user
         ];
 
-        echo "Selamat datang " . $data['nama'] . "!";
+        return view('User/index', $data);
     }
 
     //--------------------------------------------------------------------

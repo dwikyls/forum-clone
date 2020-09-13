@@ -107,14 +107,23 @@ class Login extends BaseController
         if ($user) {
             if ($user['is_active'] == 1) {
                 if ($user['password'] == $password) {
-                    $data = [
-                        'email' => $user['email'],
-                        'level' => $user['level']
-                    ];
+                    if ($user['level'] == 'admin') {
+                        $data = [
+                            'user' => $user['email']
+                        ];
 
-                    $this->session->set($data);
+                        $this->session->set($data);
 
-                    return redirect()->to('/User');
+                        return redirect()->to('/home');
+                    } else {
+                        $data = [
+                            'email' => $user['email']
+                        ];
+
+                        $this->session->set($data);
+
+                        return redirect()->to('/Home');
+                    }
                 } else {
                     session()->setFlashData(
                         'pesan',
