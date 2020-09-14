@@ -109,7 +109,7 @@ class Login extends BaseController
                 if ($user['password'] == $password) {
                     if ($user['level'] == 'admin') {
                         $data = [
-                            'user' => $user['email']
+                            'email' => $user['email']
                         ];
 
                         $this->session->set($data);

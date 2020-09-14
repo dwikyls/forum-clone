@@ -17,9 +17,6 @@ class Home extends BaseController
 	{
 		$user = $this->db->query('SELECT * FROM user WHERE email = "' . session('email') . '"')->getRowArray();
 
-		var_dump($user);
-		die;
-
 		$query = $this->db->query('SELECT post.id_post, post.judul, post.deskripsi, post.berkas, post.kategori, post.jml_komentar, post.created_at, user.foto, user.nama  FROM post INNER JOIN user ON post.user_id = user.id')->getResultArray();
 
 		$data = [

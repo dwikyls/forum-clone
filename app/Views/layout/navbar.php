@@ -68,4 +68,5 @@
             </div>
         </div>
     </div>
+    <a href="/logout" class="btn btn-danger">Logout!</a>
 </nav>
